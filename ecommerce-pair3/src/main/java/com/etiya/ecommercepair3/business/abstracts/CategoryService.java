@@ -1,15 +1,16 @@
 package com.etiya.ecommercepair3.business.abstracts;
 
-
-import com.etiya.ecommercepair3.entities.concrete.Address;
-import com.etiya.ecommercepair3.entities.concrete.Category;
+import com.etiya.ecommercepair3.business.dtos.responses.category.AddCategoryResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.category.CategoryDetailResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.category.ListCategoryResponse;
+import com.etiya.ecommercepair3.business.dtos.resquests.category.AddCategoryRequest;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAll();
-    Category getCategoryById(Integer id);
+    List<ListCategoryResponse> getAll();
+    CategoryDetailResponse getCategoryById(Integer id);
 
-    void addCategory(Category category);
+    AddCategoryResponse addCategory(AddCategoryRequest addCategoryRequest);
 }

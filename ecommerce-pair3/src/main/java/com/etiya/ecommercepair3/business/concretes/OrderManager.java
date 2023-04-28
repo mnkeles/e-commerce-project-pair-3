@@ -26,10 +26,12 @@ public class OrderManager implements OrderService {
 
     @Override
     public void addOrder(Order order) {
-        if(order.getCustomer().getId()==null){
+      /*  if(order.getCustomer().getId()==null){
             return;
         }
 
         orderDao.save(order);
+
+       */
     }
 }

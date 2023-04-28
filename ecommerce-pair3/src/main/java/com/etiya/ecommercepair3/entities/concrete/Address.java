@@ -1,5 +1,6 @@
 package com.etiya.ecommercepair3.entities.concrete;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="address")
+//@JsonIgnoreProperties("address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +32,7 @@ public class Address {
     private Customer customer;
 
     @OneToMany(mappedBy = "address")
+   // @JsonIgnoreProperties("address")
     private List<Order> orders;
 
 

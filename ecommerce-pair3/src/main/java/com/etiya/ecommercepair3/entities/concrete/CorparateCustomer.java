@@ -10,10 +10,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="corparate_customers")
-public class CorparateCustomer extends Customer {
+public class CorparateCustomer   {
 
-    @Column(name="corparate_name")
-    private String corparateName;
+    @Id
+    @Column(name="id")
+    private int id;
+
+    @Column(name="company_number")
+    private Integer companyNumber;
+
+    @Column(name="company_name")
+    private String companyName;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id")
+    private Customer customer;
 
 
 }

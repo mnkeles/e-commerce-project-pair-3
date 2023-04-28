@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="individual_customers")
-public class IndividualCustomer extends Customer {
+public class IndividualCustomer {
 
-    @Column(name="first_name")
+   /* @Column(name="first_name")
     private String firstName;
 
     @Column(name="last_name")
@@ -20,5 +20,19 @@ public class IndividualCustomer extends Customer {
 
     @Column(name="identity_number")
     private String identityNumber;
+
+    */
+
+    @Id
+    @Column(name="id")
+    private int id;
+
+    @Column(name="identity_no")
+    private String identityNo;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id")
+    private Customer customer;
 
 }

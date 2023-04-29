@@ -22,8 +22,8 @@ public class Discount {
     @Column(name="discount_amount")
     private Double discountAmount;
 
-    @Column(name="account_expire")
-    private Date accountExpire;
+    @Column(name="discount_expire")
+    private Date discountExpire;
 
     @OneToMany(mappedBy = "discount")
     private List<ProductDiscount> productDiscounts;

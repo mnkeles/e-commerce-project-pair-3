@@ -20,9 +20,6 @@ public class Salesman {
     @Column(name="name")
     private String name;
 
-    @Column(name="score")
-    private String score;
-
     @OneToMany(mappedBy = "salesman")
     private List<ProductSalesman> productSalesmen;
 

@@ -1,14 +1,18 @@
 package com.etiya.ecommercepair3.business.concretes;
 
 import com.etiya.ecommercepair3.business.abstracts.StreetService;
-import com.etiya.ecommercepair3.business.dtos.responses.country.AddCountryResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.street.AddStreetResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.street.ListStreetResponse;
-import com.etiya.ecommercepair3.business.dtos.responses.street.StreetDetailsResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.street.StreetDetailResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.street.UpdateStreetResponse;
 import com.etiya.ecommercepair3.business.dtos.resquests.street.AddStreetRequest;
+import com.etiya.ecommercepair3.business.dtos.resquests.street.UpdateStreetRequest;
 import com.etiya.ecommercepair3.core.utils.maping.ModelMapperService;
-import com.etiya.ecommercepair3.entities.concrete.Country;
-import com.etiya.ecommercepair3.entities.concrete.Street;
+import com.etiya.ecommercepair3.core.utils.results.DataResult;
+import com.etiya.ecommercepair3.core.utils.results.Result;
+import com.etiya.ecommercepair3.core.utils.results.SuccessDataResult;
+import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
+import com.etiya.ecommercepair3.entities.concretes.Street;
 import com.etiya.ecommercepair3.repositories.abstracts.StreetDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,21 +27,37 @@ public class StreetManager implements StreetService {
 
 
     @Override
-    public List<ListStreetResponse> getAll() {
-        return streetDao.getAll();
+    public DataResult<List<ListStreetResponse>> getAll() {
+        return new SuccessDataResult<>(streetDao.getAll());
     }
 
     @Override
-    public StreetDetailsResponse getById(Integer id) {
-        return streetDao.getByStreetId(id);
+    public DataResult<StreetDetailResponse> getById(Integer id) {
+        return new SuccessDataResult<>(streetDao.getByStreetId(id));
     }
 
     @Override
-    public AddStreetResponse addStreet(AddStreetRequest addStreetRequest) {
+    public DataResult<AddStreetResponse> addStreet(AddStreetRequest addStreetRequest) {
 
         Street street=modelMapperService.forRequest().map(addStreetRequest,Street.class);
         streetDao.save(street);
         AddStreetResponse addStreetResponse=modelMapperService.forResponse().map(street,AddStreetResponse.class);
-        return addStreetResponse;
+        return new SuccessDataResult<>(addStreetResponse);
+    }
+
+    @Override
+    public DataResult<UpdateStreetResponse> updateStreet(UpdateStreetRequest updateStreetRequest){
+        // iş kuralı
+        Street street=modelMapperService.forRequest().map(updateStreetRequest,Street.class);
+        street.setId(updateStreetRequest.getId());
+        streetDao.save(street);
+        UpdateStreetResponse updateStreetResponse=modelMapperService.forResponse().map(street,UpdateStreetResponse.class);
+        return new SuccessDataResult<>(updateStreetResponse);
+    }
+
+    @Override
+    public Result deleteStreet(Integer id){
+        streetDao.deleteById(id);
+        return new SuccessResult("X");
     }
 }

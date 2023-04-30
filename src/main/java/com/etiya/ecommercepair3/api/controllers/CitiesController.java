@@ -5,11 +5,12 @@ import com.etiya.ecommercepair3.business.abstracts.DistrictService;
 import com.etiya.ecommercepair3.business.dtos.responses.city.AddCityResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.city.CityDetailResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.city.ListCityResponse;
-import com.etiya.ecommercepair3.business.dtos.responses.district.AddDistrictResponse;
-import com.etiya.ecommercepair3.business.dtos.responses.district.DistrictDetailResponse;
-import com.etiya.ecommercepair3.business.dtos.responses.district.ListDistrictResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.city.UpdateCityResponse;
 import com.etiya.ecommercepair3.business.dtos.resquests.city.AddCityRequest;
-import com.etiya.ecommercepair3.business.dtos.resquests.district.AddDistrictRequest;
+import com.etiya.ecommercepair3.business.dtos.resquests.city.UpdateCityRequest;
+import com.etiya.ecommercepair3.core.utils.results.DataResult;
+import com.etiya.ecommercepair3.core.utils.results.Result;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,17 +24,27 @@ public class CitiesController {
 
 
     @GetMapping()
-    public List<ListCityResponse> getAll(){
+    public DataResult<List<ListCityResponse>> getAll(){
         return cityService.getAll();
     }
 
     @GetMapping("/{id}")
-    public CityDetailResponse getById(@PathVariable Integer id){
+    public DataResult<CityDetailResponse> getById(@PathVariable Integer id){
         return cityService.getById(id);
     }
 
     @PostMapping("/add")
-    public AddCityResponse addCity(AddCityRequest addCityRequest){
+    public DataResult<AddCityResponse> addCity(AddCityRequest addCityRequest){
         return cityService.addCity(addCityRequest);
+    }
+
+    @PutMapping("/update")
+    private DataResult<UpdateCityResponse> updateCity(@RequestBody@Valid UpdateCityRequest updateCityRequest){
+        return cityService.updateCity(updateCityRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public Result deleteCity(@PathVariable Integer id){
+        return cityService.deleteCity(id);
     }
 }

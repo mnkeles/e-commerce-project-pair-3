@@ -1,18 +1,20 @@
 package com.etiya.ecommercepair3.business.concretes;
 
-import com.etiya.ecommercepair3.business.abstracts.CustomerService;
 import com.etiya.ecommercepair3.business.dtos.responses.address.AddAddressResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.address.AddressDetailResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.address.ListAddressResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.address.UpdateAddressResponse;
 import com.etiya.ecommercepair3.business.dtos.resquests.address.AddAddressRequest;
+import com.etiya.ecommercepair3.business.dtos.resquests.address.UpdateAddressRequest;
 import com.etiya.ecommercepair3.core.utils.maping.ModelMapperService;
-import com.etiya.ecommercepair3.entities.concrete.Address;
-import com.etiya.ecommercepair3.entities.concrete.Customer;
-import com.etiya.ecommercepair3.entities.concrete.Street;
+import com.etiya.ecommercepair3.core.utils.results.DataResult;
+import com.etiya.ecommercepair3.core.utils.results.Result;
+import com.etiya.ecommercepair3.core.utils.results.SuccessDataResult;
+import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
+import com.etiya.ecommercepair3.entities.concretes.Address;
 import com.etiya.ecommercepair3.repositories.abstracts.AddressDao;
 import com.etiya.ecommercepair3.business.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,19 +26,19 @@ public class AddressManager implements AddressService {
     private final ModelMapperService modelMapperService;
 
     @Override
-    public List<ListAddressResponse> getAll() {
-        return addressDao.getAll();
+    public DataResult<List<ListAddressResponse>> getAll() {
+        return new SuccessDataResult<>(addressDao.getAll());
     }
 
     @Override
-    public AddressDetailResponse getAddressById(Integer id) {
-        return addressDao.getByAddressId(id);
+    public DataResult<AddressDetailResponse> getAddressById(Integer id) {
+        return new SuccessDataResult<>(addressDao.getByAddressId(id));
     }
 
     @Override
-    public AddAddressResponse addAddress(AddAddressRequest addAddressRequest) {
+    public DataResult<AddAddressResponse> addAddress(AddAddressRequest addAddressRequest) {
         if (addAddressRequest.getDescription() == null || addAddressRequest.getDescription().equals("")) {
-                return null;
+            return null;
         }
         /*Address address = new Address();
         address.setDescription(addAddressRequest.getDescription());
@@ -50,10 +52,26 @@ public class AddressManager implements AddressService {
         address.setStreet(street);
 
          */
-        Address address=modelMapperService.forRequest().map(addAddressRequest,Address.class);
+        Address address = modelMapperService.forRequest().map(addAddressRequest, Address.class);
         addressDao.save(address);
-        AddAddressResponse addAddressResponse=modelMapperService.forResponse().map(address,AddAddressResponse.class);
-        return addAddressResponse;
+        AddAddressResponse addAddressResponse = modelMapperService.forResponse().map(address, AddAddressResponse.class);
+        return new SuccessDataResult<>(addAddressResponse);
+    }
+
+    @Override
+    public DataResult<UpdateAddressResponse> updateAddress(UpdateAddressRequest updateAddressRequest) {
+        // iş kuralı
+        Address address = modelMapperService.forRequest().map(updateAddressRequest, Address.class);
+        address.setId(updateAddressRequest.getId());
+        addressDao.save(address);
+        UpdateAddressResponse updateAddressResponse = modelMapperService.forResponse().map(address, UpdateAddressResponse.class);
+        return new SuccessDataResult<>(updateAddressResponse);
+    }
+
+    @Override
+    public Result deleteAddress(Integer id) {
+        addressDao.deleteById(id);
+        return new SuccessResult("x");
     }
 
 

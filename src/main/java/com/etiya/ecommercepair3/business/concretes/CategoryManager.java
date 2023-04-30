@@ -1,18 +1,21 @@
 package com.etiya.ecommercepair3.business.concretes;
 
 import com.etiya.ecommercepair3.business.abstracts.CategoryService;
-import com.etiya.ecommercepair3.business.dtos.responses.address.AddAddressResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.category.AddCategoryResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.category.CategoryDetailResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.category.ListCategoryResponse;
+import com.etiya.ecommercepair3.business.dtos.responses.category.UpdateCategoryResponse;
 import com.etiya.ecommercepair3.business.dtos.resquests.category.AddCategoryRequest;
+import com.etiya.ecommercepair3.business.dtos.resquests.category.UpdateCategoryRequest;
 import com.etiya.ecommercepair3.core.utils.maping.ModelMapperService;
-import com.etiya.ecommercepair3.entities.concrete.Category;
+import com.etiya.ecommercepair3.core.utils.results.DataResult;
+import com.etiya.ecommercepair3.core.utils.results.Result;
+import com.etiya.ecommercepair3.core.utils.results.SuccessDataResult;
+import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
+import com.etiya.ecommercepair3.entities.concretes.Category;
 import com.etiya.ecommercepair3.repositories.abstracts.CategoryDao;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -22,17 +25,17 @@ public class CategoryManager implements CategoryService {
     private final CategoryDao categoryDao;
     private  final ModelMapperService modelMapperService;
     @Override
-    public List<ListCategoryResponse> getAll() {
-        return categoryDao.getAll();
+    public DataResult<List<ListCategoryResponse>> getAll() {
+        return new SuccessDataResult<>(categoryDao.getAll()) ;
     }
 
     @Override
-    public CategoryDetailResponse getCategoryById(Integer id) {
-        return categoryDao.getByCategoryId(id);
+    public DataResult<CategoryDetailResponse> getCategoryById(Integer id) {
+        return new SuccessDataResult<>(categoryDao.getByCategoryId(id));
     }
 
     @Override
-    public AddCategoryResponse addCategory(AddCategoryRequest addCategoryRequest) {
+    public DataResult<AddCategoryResponse> addCategory(AddCategoryRequest addCategoryRequest) {
        /*if (addCategoryRequest.getName() == null || addCategoryRequest.getName().equals("")) {
             return null;
         }
@@ -49,6 +52,23 @@ public class CategoryManager implements CategoryService {
 
          */
 
-        return addCategoryResponse;
+        return new SuccessDataResult<>(addCategoryResponse);
+    }
+
+    @Override
+    public DataResult<UpdateCategoryResponse> updateCategoryResponse(UpdateCategoryRequest updateCategoryRequest){
+        // iş kuralı
+        Category category=modelMapperService.forRequest().map(updateCategoryRequest,Category.class);
+        category.setId(updateCategoryRequest.getId());
+        categoryDao.save(category);
+        UpdateCategoryResponse updateCategoryResponse=modelMapperService.forResponse().map(category,UpdateCategoryResponse.class);
+        return new SuccessDataResult<>(updateCategoryResponse);
+
+    }
+
+    @Override
+    public Result deleteCategory(Integer id){
+        categoryDao.deleteById(id);
+        return new SuccessResult("X");
     }
 }

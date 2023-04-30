@@ -1,6 +1,5 @@
 package com.etiya.ecommercepair3.business.dtos.responses.address;
 
-import com.etiya.ecommercepair3.entities.concrete.Address;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

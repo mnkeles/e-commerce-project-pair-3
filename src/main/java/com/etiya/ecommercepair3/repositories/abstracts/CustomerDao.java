@@ -1,6 +1,6 @@
 package com.etiya.ecommercepair3.repositories.abstracts;
 
-import com.etiya.ecommercepair3.entities.concrete.Customer;
+import com.etiya.ecommercepair3.entities.concretes.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

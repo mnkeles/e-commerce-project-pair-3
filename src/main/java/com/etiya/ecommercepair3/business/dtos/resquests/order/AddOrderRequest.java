@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddOrderRequest {
-    //Hatalı
+
     private Integer customerId;
     private Integer addressId;
     private Integer paymentId;
+    private Integer invoiceId;
     private Integer supplierId;
 }

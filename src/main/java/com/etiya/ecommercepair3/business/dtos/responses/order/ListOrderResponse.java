@@ -11,8 +11,8 @@ public class ListOrderResponse {
     private Integer id;
     private Integer customerId;
     private Integer addressId;
-    private Integer cartId;
     private Integer paymentId;
+    private Integer invoiceId;
     private Integer supplierId;
 
 }

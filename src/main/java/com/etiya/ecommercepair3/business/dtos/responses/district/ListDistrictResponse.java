@@ -12,4 +12,3 @@ public class ListDistrictResponse {
     private String districtName;
     private Integer cityId;
 }
-

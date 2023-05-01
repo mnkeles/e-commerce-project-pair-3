@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Category;
 import com.etiya.ecommercepair3.repositories.abstracts.CategoryDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,14 +26,17 @@ import java.util.List;
 public class CategoryManager implements CategoryService {
     private final CategoryDao categoryDao;
     private  final ModelMapperService modelMapperService;
+    private final MessageSource messageSource;
     @Override
     public DataResult<List<ListCategoryResponse>> getAll() {
-        return new SuccessDataResult<>(categoryDao.getAll()) ;
+        return new SuccessDataResult<>(categoryDao.getAll(),
+                messageSource.getMessage("categoryGetAll",null,LocaleContextHolder.getLocale())) ;
     }
 
     @Override
     public DataResult<CategoryDetailResponse> getCategoryById(Integer id) {
-        return new SuccessDataResult<>(categoryDao.getByCategoryId(id));
+        return new SuccessDataResult<>(categoryDao.getByCategoryId(id),
+                messageSource.getMessage("categoryGetById",null,LocaleContextHolder.getLocale()));
     }
 
     @Override
@@ -52,7 +57,8 @@ public class CategoryManager implements CategoryService {
 
          */
 
-        return new SuccessDataResult<>(addCategoryResponse);
+        return new SuccessDataResult<>(addCategoryResponse,
+                messageSource.getMessage("categoryAdded",null,LocaleContextHolder.getLocale()));
     }
 
     @Override
@@ -62,13 +68,14 @@ public class CategoryManager implements CategoryService {
         category.setId(updateCategoryRequest.getId());
         categoryDao.save(category);
         UpdateCategoryResponse updateCategoryResponse=modelMapperService.forResponse().map(category,UpdateCategoryResponse.class);
-        return new SuccessDataResult<>(updateCategoryResponse);
+        return new SuccessDataResult<>(updateCategoryResponse,
+                messageSource.getMessage("categoryUpdated",null, LocaleContextHolder.getLocale()));
 
     }
 
     @Override
     public Result deleteCategory(Integer id){
         categoryDao.deleteById(id);
-        return new SuccessResult("X");
+        return new SuccessResult(messageSource.getMessage("categoryDeleted",null,LocaleContextHolder.getLocale()));
     }
 }

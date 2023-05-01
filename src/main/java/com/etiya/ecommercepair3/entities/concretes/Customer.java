@@ -3,6 +3,7 @@ package com.etiya.ecommercepair3.entities.concretes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -11,21 +12,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="customers")
+@Table(name = "customers")
+@EqualsAndHashCode(callSuper = false)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name="phone_number")
-    private int phoneNumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-    @Column(name="account_name")
+    @Column(name = "account_name")
     private String accountName;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
     @OneToMany(mappedBy = "customer")
@@ -36,4 +39,6 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<Comment> comments;
+
+
 }

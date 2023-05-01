@@ -9,23 +9,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="corparate_customers")
-public class CorparateCustomer   {
+@Table(name = "corparate_customers")
+@PrimaryKeyJoinColumn(name = "id")
+public class CorporateCustomer extends Customer {
+    @Column(name = "company_number")
+    private String companyNumber;
 
-    @Id
-    @Column(name="id")
-    private int id;
-
-    @Column(name="company_number")
-    private Integer companyNumber;
-
-    @Column(name="company_name")
+    @Column(name = "company_name")
     private String companyName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    /*@OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "id")
     private Customer customer;
+
+     */
 
 
 }

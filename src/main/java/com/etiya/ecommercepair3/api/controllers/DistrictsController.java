@@ -1,12 +1,10 @@
 package com.etiya.ecommercepair3.api.controllers;
 
 import com.etiya.ecommercepair3.business.abstracts.DistrictService;
-import com.etiya.ecommercepair3.business.dtos.responses.city.UpdateCityResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.district.AddDistrictResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.district.DistrictDetailResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.district.ListDistrictResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.district.UpdateDistrictResponse;
-import com.etiya.ecommercepair3.business.dtos.resquests.city.UpdateCityRequest;
 import com.etiya.ecommercepair3.business.dtos.resquests.district.AddDistrictRequest;
 import com.etiya.ecommercepair3.business.dtos.resquests.district.UpdateDistrictRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;

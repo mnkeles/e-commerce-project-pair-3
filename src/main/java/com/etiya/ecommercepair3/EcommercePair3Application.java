@@ -17,31 +17,4 @@ public class EcommercePair3Application {
 		SpringApplication.run(EcommercePair3Application.class, args);
 	}
 
-	@Bean
-	public ModelMapper getMapper(){
-		return new ModelMapper();
-	}
-
-	@Bean
-	public ResourceBundleMessageSource bundleMessageSource(){
-		// Veritabanı
-		// Dosya
-		// API
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-
-		messageSource.setBasename("messages");
-		return messageSource;
-	}
-
-	@Bean
-	public LocaleResolver localeResolver(){
-		// Clientden seçili dili hangi yöntemle almalıyız?
-		AcceptHeaderLocaleResolver acceptHeaderLocaleResolver = new AcceptHeaderLocaleResolver();
-
-		// Dil gönderilmemişse hangi dili baz alayım?
-		acceptHeaderLocaleResolver.setDefaultLocale(Locale.US); // (new Locale("tr")) şeklinde de kullanabilirsin.
-
-		return acceptHeaderLocaleResolver;
-	}
-
 }

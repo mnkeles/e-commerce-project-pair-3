@@ -18,6 +18,8 @@ import com.etiya.ecommercepair3.entities.concretes.IndividualCustomer;
 import com.etiya.ecommercepair3.repositories.abstracts.IndividualCustomerDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,8 +31,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
     private final MessageSource messageSource;
 
     @Override
-    public DataResult<ListIndividualCustomerResponse> getAll(){
-        return new SuccessDataResult<>(individualCustomerDao.getAll());
+    public DataResult<Slice<ListIndividualCustomerResponse>> getAll(Pageable pageable){
+        return new SuccessDataResult<>(individualCustomerDao.getAll(pageable));
     }
 
     @Override
@@ -44,7 +46,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         Customer customer=modelMapperService.forRequest().map(addIndividualCustomerRequest,Customer.class);
         //customerService.addCustomer(customer);
         IndividualCustomer individualCustomer=modelMapperService.forRequest().map(addIndividualCustomerRequest,IndividualCustomer.class);
-        individualCustomer.setId(customer.getId());
+        //individualCustomer.setId(customer.getId());
         individualCustomerDao.save(individualCustomer);
         AddIndividualCustomerResponse addIndividualCustomerResponse=modelMapperService.forResponse().map(individualCustomer,AddIndividualCustomerResponse.class);
         return new SuccessDataResult<>(addIndividualCustomerResponse);

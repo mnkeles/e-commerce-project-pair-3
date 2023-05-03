@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Refund;
 import com.etiya.ecommercepair3.repositories.abstracts.RefundDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class RefundManager implements RefundService {
     private final RefundDao refundDao;
     private final ModelMapperService modelMapperService;
     @Override
-    public DataResult<List<ListRefundResponse>> getAll() {
-        return new SuccessDataResult<>(refundDao.getAll());
+    public DataResult<Slice<ListRefundResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(refundDao.getAll(pageable));
     }
 
     @Override

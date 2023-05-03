@@ -8,11 +8,13 @@ import com.etiya.ecommercepair3.business.dtos.resquests.discount.AddDiscountRequ
 import com.etiya.ecommercepair3.business.dtos.resquests.discount.UpdateDiscountRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface DiscountService {
-    DataResult<List<ListDiscountResponse>> getAll();
+    DataResult<Slice<ListDiscountResponse>> getAll(Pageable pageable);
     DataResult<DiscountDetailResponse> getById(Integer id);
 
     DataResult<AddDiscountResponse> addDiscount(AddDiscountRequest addDiscountRequest);

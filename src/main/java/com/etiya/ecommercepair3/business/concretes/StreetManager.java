@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Street;
 import com.etiya.ecommercepair3.repositories.abstracts.StreetDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class StreetManager implements StreetService {
 
 
     @Override
-    public DataResult<List<ListStreetResponse>> getAll() {
-        return new SuccessDataResult<>(streetDao.getAll());
+    public DataResult<Slice<ListStreetResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(streetDao.getAll(pageable));
     }
 
     @Override

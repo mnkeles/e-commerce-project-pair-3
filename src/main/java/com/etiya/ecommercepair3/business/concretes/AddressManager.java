@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.entities.concretes.Address;
 import com.etiya.ecommercepair3.repositories.abstracts.AddressDao;
 import com.etiya.ecommercepair3.business.abstracts.AddressService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class AddressManager implements AddressService {
     private final ModelMapperService modelMapperService;
 
     @Override
-    public DataResult<List<ListAddressResponse>> getAll() {
-        return new SuccessDataResult<>(addressDao.getAll());
+    public DataResult<Slice<ListAddressResponse>> getAll(Pageable pagable) {
+        return new SuccessDataResult<>(addressDao.getAll(pagable));
     }
 
     @Override

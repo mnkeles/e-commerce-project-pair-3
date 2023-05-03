@@ -15,6 +15,10 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.City;
 import com.etiya.ecommercepair3.repositories.abstracts.CityDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,14 +28,17 @@ import java.util.List;
 public class CityManager implements CityService {
     private final CityDao cityDao;
     private final ModelMapperService modelMapperService;
+
+    private final MessageSource messageSource;
     @Override
-    public DataResult<List<ListCityResponse>> getAll() {
-        return new SuccessDataResult<>(cityDao.getAll());
+    public DataResult<Slice<ListCityResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(cityDao.getAll(pageable));
     }
 
     @Override
     public DataResult<CityDetailResponse> getById(Integer id) {
-        return new SuccessDataResult<>(cityDao.getByCityId(id));
+        return new SuccessDataResult<>(cityDao.getByCityId(id),
+                messageSource.getMessage("categoryGetAll",null, LocaleContextHolder.getLocale()));
     }
 
     @Override

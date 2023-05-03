@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Invoice;
 import com.etiya.ecommercepair3.repositories.abstracts.InvoiceDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class InvoiceManager implements InvoiceService {
     private final InvoiceDao invoiceDao;
     private final ModelMapperService modelMapperService;
     @Override
-    public DataResult<List<ListInvoiceResponse>> getAll() {
-        return new SuccessDataResult<>(invoiceDao.getAll());
+    public DataResult<Slice<ListInvoiceResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(invoiceDao.getAll(pageable));
     }
 
     @Override

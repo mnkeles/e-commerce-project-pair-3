@@ -10,11 +10,13 @@ import com.etiya.ecommercepair3.business.dtos.resquests.productAttribute.AddProd
 import com.etiya.ecommercepair3.business.dtos.resquests.productAttribute.UpdateProductAttributeRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface ProductAttributeService {
-    DataResult<List<ListProductAttributeResponse>> getAll();
+    DataResult<Slice<ListProductAttributeResponse>> getAll(Pageable pageable);
 
     DataResult<ProductAttributeDetailResponse> getById(Integer id);
 

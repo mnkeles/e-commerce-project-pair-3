@@ -10,11 +10,13 @@ import com.etiya.ecommercepair3.business.dtos.resquests.refund.AddRefundRequest;
 import com.etiya.ecommercepair3.business.dtos.resquests.refund.UpdateRefundRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface RefundService {
-    DataResult<List<ListRefundResponse>> getAll();
+    DataResult<Slice<ListRefundResponse>> getAll(Pageable pageable);
     DataResult<RefundDetailResponse> getById(Integer id);
     DataResult<AddRefundResponse> addRefund(AddRefundRequest addRefundRequest);
 

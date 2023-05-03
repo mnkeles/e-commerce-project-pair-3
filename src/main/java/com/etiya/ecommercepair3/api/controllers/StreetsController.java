@@ -13,6 +13,9 @@ import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +27,9 @@ public class StreetsController {
     private final StreetService streetService;
 
     @GetMapping()
-    public DataResult<List<ListStreetResponse>> getAll(){
-        return streetService.getAll();
+    public DataResult<Slice<ListStreetResponse>> getAll(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return streetService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

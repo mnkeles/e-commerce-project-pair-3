@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Comment;
 import com.etiya.ecommercepair3.repositories.abstracts.CommentDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +30,8 @@ public class CommentManager implements CommentService {
     private final ModelMapperService modelMapperService;
 
     @Override
-    public DataResult<List<ListCommentResponse>> getAll() {
-        return new SuccessDataResult<>(commentDao.getAll());
+    public DataResult<Slice<ListCommentResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(commentDao.getAll(pageable));
     }
 
     @Override

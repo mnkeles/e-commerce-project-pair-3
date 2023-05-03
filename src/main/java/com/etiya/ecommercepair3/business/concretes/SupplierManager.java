@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Supplier;
 import com.etiya.ecommercepair3.repositories.abstracts.SupplierDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class SupplierManager implements SupplierService {
 
     private final ModelMapperService modelMapperService;
     @Override
-    public DataResult<List<ListSupplierResponse>> getAll() {
-        return new SuccessDataResult<>(supplierDao.getAll());
+    public DataResult<Slice<ListSupplierResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(supplierDao.getAll(pageable));
     }
 
     @Override

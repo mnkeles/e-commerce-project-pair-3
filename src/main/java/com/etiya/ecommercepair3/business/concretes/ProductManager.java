@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Product;
 import com.etiya.ecommercepair3.repositories.abstracts.ProductDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class ProductManager implements ProductService {
     private final ModelMapperService modelMapperService;
 
     @Override
-    public DataResult<List<ListProductResponse>> getAll() {
-        return new SuccessDataResult<>(productDao.getAll());
+    public DataResult<Slice<ListProductResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(productDao.getAll(pageable));
     }
 
     @Override

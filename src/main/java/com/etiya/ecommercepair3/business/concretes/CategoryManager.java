@@ -1,12 +1,14 @@
 package com.etiya.ecommercepair3.business.concretes;
 
 import com.etiya.ecommercepair3.business.abstracts.CategoryService;
+import com.etiya.ecommercepair3.business.constants.Messages;
 import com.etiya.ecommercepair3.business.dtos.responses.category.AddCategoryResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.category.CategoryDetailResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.category.ListCategoryResponse;
 import com.etiya.ecommercepair3.business.dtos.responses.category.UpdateCategoryResponse;
 import com.etiya.ecommercepair3.business.dtos.resquests.category.AddCategoryRequest;
 import com.etiya.ecommercepair3.business.dtos.resquests.category.UpdateCategoryRequest;
+import com.etiya.ecommercepair3.core.internationalization.MessageService;
 import com.etiya.ecommercepair3.core.utils.maping.ModelMapperService;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
@@ -17,6 +19,8 @@ import com.etiya.ecommercepair3.repositories.abstracts.CategoryDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,17 +30,18 @@ import java.util.List;
 public class CategoryManager implements CategoryService {
     private final CategoryDao categoryDao;
     private  final ModelMapperService modelMapperService;
-    private final MessageSource messageSource;
+    private final MessageService messageService;
     @Override
-    public DataResult<List<ListCategoryResponse>> getAll() {
-        return new SuccessDataResult<>(categoryDao.getAll(),
-                messageSource.getMessage("categoryGetAll",null,LocaleContextHolder.getLocale())) ;
+    public DataResult<Slice<ListCategoryResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(categoryDao.getAll(pageable),
+                messageService.getMessage(Messages.Category.CategoryGetAll)) ;
+
     }
 
     @Override
     public DataResult<CategoryDetailResponse> getCategoryById(Integer id) {
         return new SuccessDataResult<>(categoryDao.getByCategoryId(id),
-                messageSource.getMessage("categoryGetById",null,LocaleContextHolder.getLocale()));
+                messageService.getMessage(Messages.Category.CategoryGetById));
     }
 
     @Override
@@ -58,7 +63,7 @@ public class CategoryManager implements CategoryService {
          */
 
         return new SuccessDataResult<>(addCategoryResponse,
-                messageSource.getMessage("categoryAdded",null,LocaleContextHolder.getLocale()));
+                messageService.getMessage(Messages.Category.CategoryAdded));
     }
 
     @Override
@@ -69,13 +74,13 @@ public class CategoryManager implements CategoryService {
         categoryDao.save(category);
         UpdateCategoryResponse updateCategoryResponse=modelMapperService.forResponse().map(category,UpdateCategoryResponse.class);
         return new SuccessDataResult<>(updateCategoryResponse,
-                messageSource.getMessage("categoryUpdated",null, LocaleContextHolder.getLocale()));
+                messageService.getMessage(Messages.Category.CategoryUpdated));
 
     }
 
     @Override
     public Result deleteCategory(Integer id){
         categoryDao.deleteById(id);
-        return new SuccessResult(messageSource.getMessage("categoryDeleted",null,LocaleContextHolder.getLocale()));
+        return new SuccessResult(messageService.getMessage(Messages.Category.CategoryDeleted));
     }
 }

@@ -12,12 +12,14 @@ import com.etiya.ecommercepair3.business.dtos.resquests.comment.UpdateCommentReq
 import com.etiya.ecommercepair3.business.dtos.resquests.discount.AddDiscountRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface CommentService {
 
-    DataResult<List<ListCommentResponse>> getAll();
+    DataResult<Slice<ListCommentResponse>> getAll(Pageable pageable);
     DataResult<CommentDetailResponse> getById(Integer id);
 
     DataResult<AddCommentResponse> addComment(AddCommentRequest addCommentRequest);

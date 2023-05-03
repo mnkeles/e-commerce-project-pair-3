@@ -13,6 +13,9 @@ import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +26,9 @@ import java.util.List;
 public class SuppliersController {
     private final SupplierService supplierService;
     @GetMapping()
-    public DataResult<List<ListSupplierResponse>> getAll(){
-        return supplierService.getAll();
+    public DataResult<Slice<ListSupplierResponse>> getAll(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return supplierService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

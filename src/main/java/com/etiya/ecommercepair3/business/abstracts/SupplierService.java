@@ -8,12 +8,14 @@ import com.etiya.ecommercepair3.business.dtos.resquests.supplier.AddSupplierRequ
 import com.etiya.ecommercepair3.business.dtos.resquests.supplier.UpdateSupplierRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface SupplierService {
 
-    DataResult<List<ListSupplierResponse>> getAll();
+    DataResult<Slice<ListSupplierResponse>> getAll(Pageable pageable);
     DataResult<SupplierDetailResponse> getById(Integer id);
 
     DataResult<AddSupplierResponse> addSupplier(AddSupplierRequest addSupplierRequest);

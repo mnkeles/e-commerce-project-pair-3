@@ -8,11 +8,13 @@ import com.etiya.ecommercepair3.business.dtos.resquests.city.AddCityRequest;
 import com.etiya.ecommercepair3.business.dtos.resquests.city.UpdateCityRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface CityService {
-    DataResult<List<ListCityResponse>> getAll();
+    DataResult<Slice<ListCityResponse>> getAll(Pageable pageable);
     DataResult<CityDetailResponse> getById(Integer id);
     DataResult<AddCityResponse> addCity(AddCityRequest addCityRequest);
 

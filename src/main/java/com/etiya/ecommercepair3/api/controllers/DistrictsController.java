@@ -11,6 +11,9 @@ import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +25,9 @@ public class DistrictsController {
     private final DistrictService districtService;
 
     @GetMapping()
-    public DataResult<List<ListDistrictResponse>> getAll(){
-        return districtService.getAll();
+    public DataResult<Slice<ListDistrictResponse>> getAll(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return districtService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

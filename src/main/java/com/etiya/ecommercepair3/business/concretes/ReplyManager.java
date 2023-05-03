@@ -16,6 +16,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Reply;
 import com.etiya.ecommercepair3.repositories.abstracts.ReplyDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class ReplyManager implements ReplyService {
 
     private final ModelMapperService modelMapperService;
     @Override
-    public DataResult<List<ListReplyResponse>> getAll() {
-        return new SuccessDataResult<>(replyDao.getAll());
+    public DataResult<Slice<ListReplyResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(replyDao.getAll(pageable));
     }
 
     @Override

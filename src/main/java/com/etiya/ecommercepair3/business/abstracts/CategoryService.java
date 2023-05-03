@@ -8,12 +8,14 @@ import com.etiya.ecommercepair3.business.dtos.resquests.category.AddCategoryRequ
 import com.etiya.ecommercepair3.business.dtos.resquests.category.UpdateCategoryRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    DataResult<List<ListCategoryResponse>> getAll();
+    DataResult<Slice<ListCategoryResponse>> getAll(Pageable pageable);
     DataResult<CategoryDetailResponse> getCategoryById(Integer id);
 
     DataResult<AddCategoryResponse> addCategory(AddCategoryRequest addCategoryRequest);

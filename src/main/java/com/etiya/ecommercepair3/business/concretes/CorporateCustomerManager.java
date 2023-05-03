@@ -18,7 +18,11 @@ import com.etiya.ecommercepair3.entities.concretes.Customer;
 import com.etiya.ecommercepair3.repositories.abstracts.CorporateCustomerDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +33,8 @@ public class CorporateCustomerManager implements CorporateCustomerService {
     private final CustomerService customerService;
 
     @Override
-    public DataResult<ListCorporateCustomerResponse> getAll(){
-        return new SuccessDataResult<>(corporateCustomerDao.getAll());
+    public DataResult<Slice<ListCorporateCustomerResponse>> getAll(Pageable pageable){
+        return new SuccessDataResult<>(corporateCustomerDao.getAll(pageable));
     }
 
     @Override
@@ -58,11 +62,11 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         customer.setId(updateCorporateCustomerRequest.getId());
         customerService.updateCustomer(customer);
 
-        CorporateCustomer corparateCustomer=modelMapperService.forRequest().map(updateCorporateCustomerRequest, CorporateCustomer.class);
-        corparateCustomer.setId(customer.getId());
-        corporateCustomerDao.save(corparateCustomer);
+        CorporateCustomer  corporateCustomer=modelMapperService.forRequest().map(updateCorporateCustomerRequest, CorporateCustomer.class);
+        //corporateCustomer.setId(customer.getId());
+        corporateCustomerDao.save(corporateCustomer);
 
-        UpdateCorporateCustomerResponse updateCorporateCustomerResponse=modelMapperService.forResponse().map(corparateCustomer,UpdateCorporateCustomerResponse.class);
+        UpdateCorporateCustomerResponse updateCorporateCustomerResponse=modelMapperService.forResponse().map(corporateCustomer,UpdateCorporateCustomerResponse.class);
         return new SuccessDataResult<>(updateCorporateCustomerResponse);
 
     }

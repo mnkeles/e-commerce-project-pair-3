@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Salesman;
 import com.etiya.ecommercepair3.repositories.abstracts.SalesmanDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class SalesmanManager implements SalesmanService {
     private final SalesmanDao salesmanDao;
     private final ModelMapperService modelMapperService;
     @Override
-    public DataResult<List<ListSalesmanResponse>> getAll() {
-        return new SuccessDataResult<>(salesmanDao.getAll());
+    public DataResult<Slice<ListSalesmanResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(salesmanDao.getAll(pageable));
     }
 
     @Override

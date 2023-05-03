@@ -10,11 +10,13 @@ import com.etiya.ecommercepair3.business.dtos.resquests.product.AddProductReques
 import com.etiya.ecommercepair3.business.dtos.resquests.product.UpdateProductRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface ProductService {
-    DataResult<List<ListProductResponse>> getAll();
+    DataResult<Slice<ListProductResponse>> getAll(Pageable pageable);
 
     DataResult<ProductDetailResponse> getById(Integer id);
 

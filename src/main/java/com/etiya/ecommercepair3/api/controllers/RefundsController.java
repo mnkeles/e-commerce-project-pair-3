@@ -14,6 +14,9 @@ import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +28,9 @@ public class RefundsController {
     private final RefundService refundService;
 
     @GetMapping()
-    public DataResult<List<ListRefundResponse>> getAll(){
-        return refundService.getAll();
+    public DataResult<Slice<ListRefundResponse>> getAll(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return refundService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

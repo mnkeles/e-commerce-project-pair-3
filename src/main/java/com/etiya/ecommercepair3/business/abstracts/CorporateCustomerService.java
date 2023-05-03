@@ -8,9 +8,11 @@ import com.etiya.ecommercepair3.business.dtos.resquests.corporateCustomer.AddCor
 import com.etiya.ecommercepair3.business.dtos.resquests.corporateCustomer.UpdateCorporateCustomerRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 public interface CorporateCustomerService {
-    DataResult<ListCorporateCustomerResponse> getAll();
+    DataResult<Slice<ListCorporateCustomerResponse>> getAll(Pageable pageable);
 
     DataResult<CorporateCustomerDetailResponse> getById(Integer id);
 

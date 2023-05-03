@@ -8,12 +8,14 @@ import com.etiya.ecommercepair3.business.dtos.resquests.order.AddOrderRequest;
 import com.etiya.ecommercepair3.business.dtos.resquests.order.UpdateOrderRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface OrderService {
 
-    DataResult<List<ListOrderResponse>> getAll();
+    DataResult<Slice<ListOrderResponse>> getAll(Pageable pageable);
 
     DataResult<OrderDetailResponse> getOrderById(Integer id);
 

@@ -8,12 +8,14 @@ import com.etiya.ecommercepair3.business.dtos.resquests.payment.AddPaymentReques
 import com.etiya.ecommercepair3.business.dtos.resquests.payment.UpdatePaymentRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.List;
 
 public interface PaymentService {
 
-    DataResult<List<ListPaymentResponse>> getAll();
+    DataResult<Slice<ListPaymentResponse>> getAll(Pageable pageable);
     DataResult<PaymentDetailResponse> getPaymentById(Integer id);
     DataResult<AddPaymentResponse> addPayment(AddPaymentRequest addPaymentRequest);
 

@@ -8,9 +8,11 @@ import com.etiya.ecommercepair3.business.dtos.resquests.individualCustomer.AddIn
 import com.etiya.ecommercepair3.business.dtos.resquests.individualCustomer.UpdateIndividualCustomerRequest;
 import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 public interface IndividualCustomerService {
-    DataResult<ListIndividualCustomerResponse> getAll();
+    DataResult<Slice<ListIndividualCustomerResponse>> getAll(Pageable pageable);
 
     DataResult<IndividualCustomerDetailResponse> getById(Integer id);
 

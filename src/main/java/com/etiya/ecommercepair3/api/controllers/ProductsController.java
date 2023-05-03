@@ -14,6 +14,9 @@ import com.etiya.ecommercepair3.core.utils.results.DataResult;
 import com.etiya.ecommercepair3.core.utils.results.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +25,11 @@ import java.util.List;
 @RequestMapping("/api/product")
 @RequiredArgsConstructor
 public class ProductsController {
-    private ProductService productService;
+    private final ProductService productService;
     @GetMapping()
-    public DataResult<List<ListProductResponse>> getAll(){
-        return productService.getAll();
+    public DataResult<Slice<ListProductResponse>> getAll(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return productService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

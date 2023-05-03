@@ -15,6 +15,8 @@ import com.etiya.ecommercepair3.core.utils.results.SuccessResult;
 import com.etiya.ecommercepair3.entities.concretes.Payment;
 import com.etiya.ecommercepair3.repositories.abstracts.PaymentDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class PaymentManager implements PaymentService {
     private final ModelMapperService modelMapperService;
 
     @Override
-    public DataResult<List<ListPaymentResponse>> getAll() {
-        return new SuccessDataResult<>(paymentDao.getAll());
+    public DataResult<Slice<ListPaymentResponse>> getAll(Pageable pageable) {
+        return new SuccessDataResult<>(paymentDao.getAll( pageable));
     }
 
     @Override

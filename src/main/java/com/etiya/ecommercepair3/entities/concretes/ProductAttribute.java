@@ -34,4 +34,11 @@ public class ProductAttribute {
     @OneToMany(mappedBy = "productAttribute")
     private List<Product> products;
 
+    public ProductAttribute(Integer id,GenderType genderType,SizeType sizeType,ColorType colorType){
+        this.id=id;
+        this.colorType=colorType;
+        this.genderType=genderType;
+        this.sizeType=sizeType;
+    }
+
 }

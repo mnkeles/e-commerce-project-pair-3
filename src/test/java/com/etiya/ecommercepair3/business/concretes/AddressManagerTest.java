@@ -41,7 +41,7 @@ public class AddressManagerTest {
 
     @Test  // Hatalı
     void delete(){
-        when(addressDao.deleteById(1)).thenReturn(new AddressManager());
+        when(addressDao.deleteById(1)).thenReturn();
 
         DataResult<OrderDetailResponse> expectedResult = orderManager.getOrderById(1);
         assert actualresult.getData().equals(expectedResult.getData());
